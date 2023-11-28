@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+"""Used to create one or more applications.
+ A website may consist of one or more sections. For example, main site, blog, wiki, downloads area, etc. 
+ Django encourages you to develop these components as separate applications, which could then be re-used in different projects if desired."""
+
 import os
 import sys
 
