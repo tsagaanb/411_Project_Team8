@@ -18,12 +18,12 @@ class Choice(models.Model):
 #want to store recipie name, ingredients, and instructions
 class Recipe(models.Model):
     recipe_name = models.CharField(max_length=200)
-    instructions = models.CharField(max_length=200)
+    instructions = models.CharField(max_length=200000)
     
 class Ingredient(models.Model):
     ingredient_name = models.CharField(max_length=200)
-    ingredient_amount = models.IntegerField(default=0) #may need one of these for each ingredient
-    #OR ingredient_amount = models.ForeignKey(Question, on_delete=models.CASCADE)
+    #ingredient_amount = models.IntegerField(default=0) #may need one of these for each ingredient
+    ingredient_amount = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
     def __str__(self): #string representation of the object, dont know if we need this
         return self.recipe_name

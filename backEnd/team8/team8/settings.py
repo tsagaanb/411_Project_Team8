@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "backend.apps.BackendConfig", #added this after changing the models.py file and adding recipie class etc
+    "backend.apps.BeckendConfig", #added this after changing the models.py file and adding recipie class etc. dont know if backendConfig is right
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
