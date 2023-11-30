@@ -40,3 +40,10 @@ class UserRecipe(models.Model):
     def __str__(self): #string representation of the object, dont know if we need this
         return self.recipe_name
     
+
+# Adding a rating system on the recipes
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    comments = models.TextField(blank=True, null=True)
