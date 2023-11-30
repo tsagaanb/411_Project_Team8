@@ -11,7 +11,8 @@ def index(request):
 #this is the file where you would write calls to the api
     foods = "apples, user input"
 
-    url = 'https://api.spoonacular.com/recipes/findByIngredients?ingredients='+[foods]+'&number=10&limitLicense=true&ranking=1&ignorePantry=false'
+    url = f"https://api.spoonacular.com/recipes/findByIngredients?ingredients={foods}&number=10&limitLicense=true&ranking=1&ignorePantry=false"
+
    # should have user input 
     response = requests.get(url)
     #acessing the spenacular api and getting the response
