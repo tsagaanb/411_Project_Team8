@@ -15,6 +15,11 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)"""
 
+class UserRecipe(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    saved_at = models.DateTimeField(auto_now_add=True) 
+
 #want to store recipie name, ingredients, and instructions
 class Recipe(models.Model):
     recipe_name = models.CharField(max_length=200)
