@@ -1,6 +1,10 @@
 import requests
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Recipe, Rating
+from .forms import RatingForm
+from django.contrib.auth.decorators import login_required
+
 
 def generate_recipe(request):
     if request.method == 'POST':
@@ -25,3 +29,19 @@ def generate_recipe(request):
         
         except requests.RequestException as e:
             return HttpResponse(f"Error fetching recipe: {str(e)}")
+
+@login_required
+def rate_product(request, recipe_id):
+    recipe = Recipe.objects.get(pk=recipe_id)
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            rating_value = form.cleaned_data['rating']
+            comments = form.cleaned_data['comments']  # Extract comments from the form
+
+            Rating.objects.create(user=request.user, recipe=recipe, rating=rating_value, comments=comments)
+            # You might want to add logic to handle duplicates or updates here
+            return redirect('product_detail', recipe_id=recipe_id)
+    else:
+        form = RatingForm()
+    return render(request, 'rate_product.html', {'form': form, 'recipe': recipe})
