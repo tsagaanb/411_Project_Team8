@@ -108,8 +108,8 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'online',
         },
         'APP': {
-            'client_id': '<YOUR_CLIENT_ID>',
-            'secret': '<YOUR_SECRET>',
+            'client_id': '<YOUR_CLIENT_ID>', ######
+            'secret': '<YOUR_SECRET>', ########
             'key': ''
         }
     }
