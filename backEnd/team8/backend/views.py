@@ -8,11 +8,11 @@ from rest_framework.views import APIView  #not sure what this is
 from . models import *
 from rest_framework.response import Response  #not sure what this is
 from . serializer import *
-
+ ####api stuff 
 
 
 def generate_recipe(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         # Assuming you have a form with a field named 'ingredients'
         ingredients = request.POST.get('ingredients')
 
