@@ -55,6 +55,8 @@ def get_nutrients(request): #second api
      return render(request, 'index.html')  # Assuming you have an HTML template
   
 
+    user_input = request.GET.get('ingredients', '')
+
     allergymenu_api_key = 'A71D1F837C776A2B38112BD8030E4331'
     allergymenu_api_url = 'https://api.allergymenu.com/v2/nutrition/ingredient/'
 
@@ -62,9 +64,8 @@ def get_nutrients(request): #second api
             'Authorization': f'Token {allergymenu_api_key}',
         }
     params = {
-            'ingredients': ingredients,
+            'ingredients':  user_input,
         }
-
     response = requests.get(allergymenu_api_url, headers=headers, params=params)
 
     if response.status_code == 200:
