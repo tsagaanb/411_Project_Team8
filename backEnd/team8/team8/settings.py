@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "rest_framework",
-    "team8.core",
-    "corsheaders",
+   # "django.core",
+   # "corsheaders",
 
 ]
 #step 7 of connecting front to backend 
@@ -59,7 +59,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-    "corsheaders.middleware.CorsMiddleware ",
+   # "corsheaders.middleware.CorsMiddleware ",
+
 ]
 
 ROOT_URLCONF = "team8.urls"

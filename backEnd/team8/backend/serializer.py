@@ -3,9 +3,8 @@
 #into JSON(Which we are going to use in React#
 
 #for connecting front to backend
-
 from rest_framework import serializers 
-from . models import *
+from . models import React
   
 class ReactSerializer(serializers.ModelSerializer): 
     class Meta: 

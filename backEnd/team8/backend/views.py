@@ -8,42 +8,46 @@ from rest_framework.views import APIView  #not sure what this is
 from . models import *
 from rest_framework.response import Response  #not sure what this is
 from . serializer import *
-from .utils import get_recipe_from_ingredients  # for spoonacular API
+#from .utils import get_recipe_from_ingredients  # for spoonacular API
+from django.http import JsonResponse
+
 
  ####api stuff 
 
 ###
-def get_recipe_from_ingredients(ingredients):
-    API_KEY = 'ca901afbf9cf4f24a06beb44646e7e90'
-    endpoint = 'https://api.spoonacular.com/recipes/findByIngredients'
+def get_recipes(request):
+    if request.method == 'GET':
+        # Get user input ingredients from the request
+        user_input = request.GET.get('ingredients', '')  # Assuming 'ingredients' is the parameter name
 
-    params = {
-        'ingredients': ','.join(ingredients),
-        'apiKey': API_KEY,
-        'number': 5  # Number of recipes to retrieve
-    }
+        # Set up your Spoonacular API endpoint and parameters
+        api_key = 'ca901afbf9cf4f24a06beb44646e7e90'
+        endpoint = 'https://api.spoonacular.com/recipes/findByIngredients'
+        params = {
+            'ingredients': user_input,
+            'apiKey': api_key,
+            'number': 3 # number of recipes returned to the user
+            # 3 for now, for tests only. Update to 10 when making a video
+        }
 
-    response = requests.get(endpoint, params=params)
+        # Make a GET request to the Spoonacular API
+        response = requests.get(endpoint, params=params)
 
-    if response.status_code == 200:
-        recipes = response.json()
-        return recipes
-    else:
-        return None  # Handle errors appropriately
-# In your views.py
-from django.shortcuts import render
-from .utils import get_recipe_from_ingredients
-
-def display_recipes(request):
-    if 'ingredients' in request.GET:
-        ingredients = request.GET.get('ingredients').split(',')
-        recipes = get_recipe_from_ingredients(ingredients)
-        if recipes:
-            return render(request, 'recipes.html', {'recipes': recipes})
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Parse the JSON response
+            recipes = response.json()
+            # Process the recipes data as needed
+            # For example, you can extract recipe names, IDs, etc.
+            
+            # Return the recipe data as JSON response
+            return JsonResponse(recipes, safe=False)
         else:
-            return render(request, 'error.html')  # Handle error case
-    return render(request, 'index.html')
-###
+            # Handle API request failure
+            return JsonResponse({'error': 'Failed to fetch recipes'}, status=response.status_code)
+
+    # Handle other HTTP methods if needed
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 
 @login_required
