@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "rest_framework",
-    "team8.core",
+    "django.core",
     "corsheaders",
 
 ]
