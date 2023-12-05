@@ -26,7 +26,7 @@ def get_recipes(request):
         params = {
             'ingredients': user_input,
             'apiKey': api_key,
-            'number': 3 # number of recipes returned to the user
+            'number': 3, # number of recipes returned to user
             # 3 for now, for tests only. Update to 10 when making a video
         }
 
