@@ -58,7 +58,8 @@ def get_nutrients(request): #second api
     user_input = request.GET.get('ingredients', '')
 
     allergymenu_api_key = 'A71D1F837C776A2B38112BD8030E4331'
-    allergymenu_api_url = 'https://api.allergymenu.com/v2/nutrition/ingredient/'
+    allergymenu_api_url = 'https://allergymenu.uk/api/v1'
+   #allergymenu_api_url = 'https://api.allergymenu.com/v2/nutrition/ingredient/'
 
     headers = {
             'Authorization': f'Token {allergymenu_api_key}',

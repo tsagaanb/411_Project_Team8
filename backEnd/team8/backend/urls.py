@@ -12,7 +12,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('get_recipes/', views.get_recipes, name='get_recipes'),  # without parameter
     path('get_recipes/<str:ingredients>/', views.get_recipes, name='get_recipes_with_ingredients'),  # with parameter
-    path('', get_nutrients, name='get_nutrients'), #for second api
+    #path('', get_nutrients, name='get_nutrients'), #for second api
+    path('get_nutrients/',views.get_nutrients, name='get_nutrients'), #without parameter
+    path('get_nutrients/<str:ingredients>/',views.get_nutrients, name='get_nutrients_with_ingredients'), #with parameter
 ]
 
 #could also be:
