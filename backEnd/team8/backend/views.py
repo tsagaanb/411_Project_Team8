@@ -49,6 +49,43 @@ def get_recipes(request):
     # Handle other HTTP methods if needed
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
+def get_nutrients(request): #second api
+    if request.method == 'GET':
+     # Get user input ingredients from the request
+     return render(request, 'index.html')  # Assuming you have an HTML template
+  
+
+    allergymenu_api_key = 'A71D1F837C776A2B38112BD8030E4331'
+    allergymenu_api_url = 'https://api.allergymenu.com/v2/nutrition/ingredient/'
+
+    headers = {
+            'Authorization': f'Token {allergymenu_api_key}',
+        }
+    params = {
+            'ingredients': ingredients,
+        }
+
+    response = requests.get(allergymenu_api_url, headers=headers, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+        # Extract relevant nutritional information from the API response
+        nutritional_info = {
+            'food_name': data.get('name', 'N/A'),
+            'calories': data.get('calories', 'N/A'),
+            'protein': data.get('protein', 'N/A'),
+            'total_fat': data.get('total_fat', 'N/A'),
+            'total_carbohydrate': data.get('total_carbohydrate', 'N/A'),
+        }
+        return JsonResponse(nutritional_info)
+    else:
+        return JsonResponse({'error': 'Unable to fetch data from AllergyMenu API'}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method.'}, status=400)
+
+
+
+    
 
 @login_required
 def rate_product(request, recipe_id):
