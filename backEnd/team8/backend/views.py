@@ -8,32 +8,43 @@ from rest_framework.views import APIView  #not sure what this is
 from . models import *
 from rest_framework.response import Response  #not sure what this is
 from . serializer import *
+from .utils import get_recipe_from_ingredients  # for spoonacular API
+
  ####api stuff 
 
+###
+def get_recipe_from_ingredients(ingredients):
+    API_KEY = 'ca901afbf9cf4f24a06beb44646e7e90'
+    endpoint = 'https://api.spoonacular.com/recipes/findByIngredients'
 
-def generate_recipe(request):
-    if request.method == 'GET':
-        # Assuming you have a form with a field named 'ingredients'
-        ingredients = request.POST.get('ingredients')
+    params = {
+        'ingredients': ','.join(ingredients),
+        'apiKey': API_KEY,
+        'number': 5  # Number of recipes to retrieve
+    }
 
-        # Replace 'API_ENDPOINT' with the actual recipe API endpoint
-        recipe_api_url = f'https://api.spoonacular.com/recipes/findByIngredients?ingredients={ingredients}&number=10&limitLicense=true&ranking=1&ignorePantry=false'
+    response = requests.get(endpoint, params=params)
 
-        try:
-            # Make a GET request to the recipe API
-            response = requests.get(recipe_api_url)
+    if response.status_code == 200:
+        recipes = response.json()
+        return recipes
+    else:
+        return None  # Handle errors appropriately
+# In your views.py
+from django.shortcuts import render
+from .utils import get_recipe_from_ingredients
 
-            if response.status_code == 200:
-                # If the API call is successful, retrieve the recipe data
-                recipe_data = response.json()
-                # Process the recipe data as needed
-                # For example, extract recipe details and render them in a template
-                return render(request, 'recipe_template.html', {'recipe': recipe_data})
-            else:
-                return HttpResponse(f"Failed to fetch recipe. Error: {response.status_code}")
-        
-        except requests.RequestException as e:
-            return HttpResponse(f"Error fetching recipe: {str(e)}")
+def display_recipes(request):
+    if 'ingredients' in request.GET:
+        ingredients = request.GET.get('ingredients').split(',')
+        recipes = get_recipe_from_ingredients(ingredients)
+        if recipes:
+            return render(request, 'recipes.html', {'recipes': recipes})
+        else:
+            return render(request, 'error.html')  # Handle error case
+    return render(request, 'index.html')
+###
+
 
 @login_required
 def rate_product(request, recipe_id):
