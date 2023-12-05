@@ -109,8 +109,8 @@ SOCIALACCOUNT_PROVIDERS = {
             "access_type": "online",
         },
         "APP": {
-            "client_id": "<YOUR_CLIENT_ID>",
-            "secret": "<YOUR_SECRET>",
+            "client_id": "312871000003-3d2pb1d7jlktfuhvkcl1lpkal499s7l7.apps.googleusercontent.com",
+            "secret": "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",
             "key": ""
         }
     }
