@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "rest_framework",
     "django.core",
-    "corsheaders",
+    "django.corsheaders",
 
 ]
 #step 7 of connecting front to backend 
