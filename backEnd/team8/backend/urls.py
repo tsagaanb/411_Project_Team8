@@ -5,7 +5,7 @@ from django.contrib import admin
 #from django.conf.urls import url 
 #from core.views import * #not sure
 from . import views
-from .views import get_recipes, get_news, rate_product, ReactView
+from .views import get_recipes, get_news, submit_rating, ReactView
 
 
 

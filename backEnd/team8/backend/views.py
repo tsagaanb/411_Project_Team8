@@ -80,7 +80,6 @@ def get_news(request): #second api
     # Handle other HTTP methods if needed
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-
 def submit_rating(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     
