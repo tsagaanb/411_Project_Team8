@@ -6,6 +6,9 @@ from django.contrib import admin
 #from core.views import * #not sure
 from . import views
 from .views import get_nutrients #second api
+from .views import get_recipes, get_nutrients, rate_product, ReactView
+
+
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
@@ -15,6 +18,7 @@ urlpatterns = [
     #path('', get_nutrients, name='get_nutrients'), #for second api
     path('get_nutrients/',views.get_nutrients, name='get_nutrients'), #without parameter
     path('get_nutrients/<str:ingredients>/',views.get_nutrients, name='get_nutrients_with_ingredients'), #with parameter
+    #path('rate_product/<int:recipe_id>/', rate_product, name='rate_product'), rating system
 ]
 
 #could also be:
