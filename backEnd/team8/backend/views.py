@@ -81,24 +81,30 @@ def get_news(request): #second api
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 
-
+def submit_rating(request, recipe_id):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
     
-
-@login_required
-def rate_product(request, recipe_id):
-    recipe = Recipe.objects.get(pk=recipe_id)
     if request.method == 'POST':
-        form = RatingForm(request.POST)
-        if form.is_valid():
-            rating_value = form.cleaned_data['rating']
-            comments = form.cleaned_data['comments']  # Extract comments from the form
+        rating_value = request.POST.get('rating')  # Get rating value from POST data
+        comments = request.POST.get('comments')  # Get comments from POST data
 
-            Rating.objects.create(user=request.user, recipe=recipe, rating=rating_value, comments=comments)
-            # You might want to add logic to handle duplicates or updates here
-            return redirect('product_detail', recipe_id=recipe_id)
+        # Save rating in the database
+        rating = Rating.objects.create(user=request.user, recipe=recipe, rating=rating_value, comments=comments)
+
+        # Update recipe's average rating and total ratings count
+        ratings = Rating.objects.filter(recipe=recipe)
+        total_ratings = ratings.count()
+        average_rating = ratings.aggregate(avg_rating=models.Avg('rating'))['avg_rating']
+
+        recipe.total_ratings = total_ratings
+        recipe.average_rating = average_rating
+        recipe.save()
+
+        return JsonResponse({'message': 'Rating submitted successfully'}, status=200)
     else:
-        form = RatingForm()
-    return render(request, 'rate_product.html', {'form': form, 'recipe': recipe})
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
 
 
 #to connect to front end:

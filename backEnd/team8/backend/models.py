@@ -31,7 +31,10 @@ class User(models.Model):
 class Recipe(models.Model):
     recipe_name = models.CharField(max_length=200)
     instructions = models.CharField(max_length=200000)
-    
+    average_rating = models.FloatField(default=0) #average rating of the recipe
+    total_ratings = models.IntegerField(default=0)   #total number of ratings
+
+
 class Ingredient(models.Model):
     ingredient_name = models.CharField(max_length=200)
     #ingredient_amount = models.IntegerField(default=0) #may need one of these for each ingredient
