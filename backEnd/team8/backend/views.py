@@ -49,41 +49,36 @@ def get_recipes(request):
     # Handle other HTTP methods if needed
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-def get_nutrients(request): #second api
+def get_news(request): #second api
     if request.method == 'GET':
      # Get user input ingredients from the request
-     return render(request, 'index.html')  # Assuming you have an HTML template
-  
+     user_input = request.GET.get('keywords', '') 
 
-    user_input = request.GET.get('ingredients', '')
+    news_api_key = '2be62868051e4302984528e0d8dbf8c9'
+    news_api_url = 'https://newsapi.org/v2/everything'
 
-    allergymenu_api_key = 'A71D1F837C776A2B38112BD8030E4331'
-    allergymenu_api_url = 'https://allergymenu.uk/api/v1'
-   #allergymenu_api_url = 'https://api.allergymenu.com/v2/nutrition/ingredient/'
-
-    headers = {
-            'Authorization': f'Token {allergymenu_api_key}',
-        }
     params = {
-            'ingredients':  user_input,
+            'q': user_input,
+            'apiKey': news_api_key,
         }
-    response = requests.get(allergymenu_api_url, headers=headers, params=params)
+
+    response = requests.get(news_api_url, params=params)
+
 
     if response.status_code == 200:
-        data = response.json()
-        # Extract relevant nutritional information from the API response
-        nutritional_info = {
-            'food_name': data.get('name', 'N/A'),
-            'calories': data.get('calories', 'N/A'),
-            'protein': data.get('protein', 'N/A'),
-            'total_fat': data.get('total_fat', 'N/A'),
-            'total_carbohydrate': data.get('total_carbohydrate', 'N/A'),
-        }
-        return JsonResponse(nutritional_info)
+            # Parse the JSON response
+            news_data = response.json()
+            # Process the news data as needed
+            # For example, you can extract article titles, URLs, etc.
+            
+            # Return the news data as JSON response
+            return JsonResponse(news_data, safe=False)
     else:
-        return JsonResponse({'error': 'Unable to fetch data from AllergyMenu API'}, status=500)
+        # Handle API request failure
+        return JsonResponse({'error': 'Failed to fetch news articles'}, status=response.status_code)
 
-    return JsonResponse({'error': 'Invalid request method.'}, status=400)
+    # Handle other HTTP methods if needed
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 
 
