@@ -15,7 +15,6 @@ urlpatterns = [
     path('get_recipes/', views.get_recipes, name='get_recipes'),  # without parameter
     path('get_recipes/<str:ingredients>/', views.get_recipes, name='get_recipes_with_ingredients'),  # with parameter
     path('get_news/', get_news, name='get_news'),
-    #path('rate_product/<int:recipe_id>/', rate_product, name='rate_product'), rating system
-    path('submit_rating/<int:recipe_id>/', views.rate_recipe, name='rate_recipe'),
+    path('submit_rating/<int:recipe_id>/', views.submit_rating, name='submit_rating'),
 
 ]
