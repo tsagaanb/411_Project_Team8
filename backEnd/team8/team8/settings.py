@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "rest_framework",
     "django.contrib",
+    "django.contrib.sites",
+    "oauth_app",
    # "django.core",
    # "corsheaders",
 
@@ -159,5 +161,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+SITE_ID = 2
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
