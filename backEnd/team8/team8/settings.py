@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "rest_framework",
     "django.contrib",
+    "django.contrib.sites",
+    "oauth_app",
    # "django.core",
    # "corsheaders",
 
