@@ -6,5 +6,5 @@ admin.site.register(User)
 admin.site.register(UserRecipe)
 admin.site.register(Recipe)
 admin.site.register(Ingredient)
-admin.site.register(Rating)
+# admin.site.register(Rating)
 
