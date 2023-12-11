@@ -1,7 +1,7 @@
 import requests
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Recipe, Rating
+from .models import Recipe
 from .forms import RatingForm
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView  #not sure what this is
