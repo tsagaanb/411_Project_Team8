@@ -51,3 +51,12 @@
   bottom: 0;
   width: 100%;
 }
+
+
+p {
+  font-size: 24px;
+  text-align: center;
+  color: white;
+  line-height: 1.8;
+}
+

@@ -1,13 +1,13 @@
 import React from "react";
 import "./Navbar.css";
-import logo from "./Images/logo.png";
+import logo from "./Images/smallerLogo.png";
 
 function Navbar(){
   return(
     <>
       <nav>
         <a href="/" className="Navbar-logo">
-          <img src={logo} alt="" style={{ width: '100px', height: 'auto' }}/>
+          <img src={logo} alt="" style={{ width: '125px', height: 'auto' }}/>
         </a>
         <div>
           <ul id ="navbar">
