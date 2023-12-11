@@ -3,18 +3,16 @@ import "./App.css";
 //import LoginButton from "./login"; 
 //import { gapi } from "gapi-script";
 import logo from "./components/Images/smallerLogo.png"
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import Homepage from './homepage'; 
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 //import axios from "axios";
 
 
-
-
-
 //const clientId = "312871000003-3d2pb1d7jlktfuhvkcl1lpkal499s7l7.apps.googleusercontent.com";
 
-export default function App() {
+const App = () => {
+  const handleLoginSuccess = ({code}) => {
+    console.log('Login succsful', code);
+  };
   /*
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
@@ -51,8 +49,6 @@ export default function App() {
   }, []);
 */
   return (
-    <Router>
-
     <div className="App">
       <a href="/" className="App-logo">
           <img src={logo} alt="" style={{ width: '600px', height: 'auto' }}/>
@@ -76,36 +72,20 @@ export default function App() {
       <h2>Login below</h2>
 
       {/* Login Form */}
-      <div className="login-form">
-      <GoogleOAuthProvider clientId="312871000003-3d2pb1d7jlktfuhvkcl1lpkal499s7l7.apps.googleusercontent.com">
-        <GoogleLogin
-          onSuccess={credentialResponse => {
-            console.log(credentialResponse);
-            //setIsAuthenticated(true);
-
-          }}
-          onError={() => {
-            console.log('Login Failed');
-          }}
-        />;
-      </GoogleOAuthProvider>;
-
+          <div className="login-form">
+            <GoogleOAuthProvider clientId="312871000003-3d2pb1d7jlktfuhvkcl1lpkal499s7l7.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={() => {
+                  console.log('Login successful');
+                  window.location.href ='/homepage'; // Redirect to the homepage after login
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+              />
+            </GoogleOAuthProvider>
+          </div>
       </div>
-      <Routes>
-          {/*<Route exact path="/" component={LoginButton} />*/}
-          <Route exact path="/homepage" element={<Homepage />} />
-          
-          {/*{isAuthenticated ? (
-            <Route path="/homepage" element={<Homepage />} />
-          ) : (
-            <Route path="*" element={null} />
-          )} */}
-          {/* not sure how this is supposed to work, the home page keeps appearing
-              on the bottom even if the user is not logged in.
-              But when i delete the line above, it says homepage cannot be found.*/}
-        </Routes>
-    </div>
-    </Router>
-
-  );
-}
+    );
+  }
+  export default App;
