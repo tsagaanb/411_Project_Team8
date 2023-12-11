@@ -1,7 +1,6 @@
 import React from 'react';
 import './homepage.css';
 import Navbar from './components/Navbar';
-import logo from "./components/Images/smallerLogo.png"
 
 function Homepage() {
   

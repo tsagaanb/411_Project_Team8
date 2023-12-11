@@ -18,10 +18,10 @@ function GetNews() {
       const response = await axios.get('http://127.0.0.1:8000/backend/get_recipes/?ingredients=${ingredients}') // change this with the news api
      
       if (response.status === 200) {
-        setRecipes(response.data);
+        setNews(response.data);
 
         // Redirect to a new URL
-        navigate.push(`/backend/get_recipes/?ingredients=${encodeURIComponent(ingredients)}`); //change this with the news api
+        navigate.push(`/backend/get_recipes/?ingredients=${encodeURIComponent(news)}`); //change this with the news api
 
       } else {
         setError('Failed to fetch news');
@@ -54,7 +54,7 @@ function GetNews() {
       {error && <p>{error}</p>}
 
       <div>
-        {recipes.map((recipe, index) => (
+        {news.map((news, index) => (
           <div key={index}>
             <h3>{news.title}</h3>
             <p>{news.description}</p>
@@ -66,4 +66,4 @@ function GetNews() {
   );
 }
 
-export default GetRecipes;
+export default GetNews;
