@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'; //using router dom so that it brings us to a different page 
+import { useNavigate } from 'react-router-dom'; //using router dom so that it brings us to a different page 
 
 
 // url of api info: http://127.0.0.1:8000/backend/get_recipes/?ingredients=cheese,bread,ham
@@ -11,6 +10,7 @@ function GetRecipes() {
   const [ingredients, setIngredients] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleGetRecipes = async (event) => {
     event.preventDefault();
@@ -21,7 +21,7 @@ function GetRecipes() {
         setRecipes(response.data);
 
         // Redirect to a new URL
-        history.push(`/backend/get_recipes/?ingredients=${encodeURIComponent(ingredients)}`);
+        navigate.push(`/backend/get_recipes/?ingredients=${encodeURIComponent(ingredients)}`);
 
       } else {
         setError('Failed to fetch recipes');
@@ -37,7 +37,6 @@ function GetRecipes() {
   };
 
   return (
-    <Router>
     <div>
       <h1>Get Recipes</h1>
         
@@ -64,7 +63,6 @@ function GetRecipes() {
         ))}
       </div>
     </div>
-    </Router>
   );
 }
 

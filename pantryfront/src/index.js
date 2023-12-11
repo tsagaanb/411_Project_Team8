@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Homepage from './homepage';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import GetRecipes from "./getRecipe";
 
 const root = document.getElementById('root');
 
@@ -14,6 +15,7 @@ const RootComponent = (
         <Routes>
             <Route path="/" element={<App />} />
             <Route path="/homepage" element={<Homepage />} />
+            <Route path="/getRecipe" element={<GetRecipes />} />
         </Routes>
     </Router>
 );
