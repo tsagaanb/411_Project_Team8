@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import LoginButton from "./login"; 
+//import LoginButton from "./login"; 
 import { gapi } from "gapi-script";
 import logo from "./components/Images/smallerLogo.png"
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Homepage from './homepage'; 
-import axios from "axios";
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+//import axios from "axios";
+
+
 
 
 
@@ -73,10 +76,20 @@ export default function App() {
 
       {/* Login Form */}
       <div className="login-form">
-        <LoginButton />
+      <GoogleOAuthProvider clientId="312871000003-3d2pb1d7jlktfuhvkcl1lpkal499s7l7.apps.googleusercontent.com">
+        <GoogleLogin
+          onSuccess={credentialResponse => {
+            console.log(credentialResponse);
+          }}
+          onError={() => {
+            console.log('Login Failed');
+          }}
+        />;
+      </GoogleOAuthProvider>;
+
       </div>
       <Routes>
-          <Route exact path="/" component={LoginButton} />
+          {/*<Route exact path="/" component={LoginButton} />*/}
           {isAuthenticated ? (
             <Route path="/homepage" element={<Homepage />} />
           ) : (
