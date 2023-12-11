@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; //using router dom so that it brings us to a different page 
+//import { useNavigate } from 'react-router-dom'; //using router dom so that it brings us to a different page 
 
 
 // url of api info: http://127.0.0.1:8000/backend/get_recipes/?ingredients=cheese,bread,ham
@@ -10,16 +10,13 @@ function GetRecipes() {
   const [ingredients, setIngredients] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const handleGetRecipes = async () => {
       const response = await axios.get(`http://127.0.0.1:8000/backend/get_recipes/?ingredients=${ingredients}`)
       const recipe = await response.data;
       console.log(recipe);
       setRecipes(recipe);
-
-     
-    
   };
   React.useEffect(() => {
     handleGetRecipes();
