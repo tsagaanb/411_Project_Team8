@@ -53,22 +53,15 @@ const App = () => {
       <a href="/" className="App-logo">
           <img src={logo} alt="" style={{ width: '600px', height: 'auto' }}/>
         </a>
+      
       <p><b>
-        Pantry Wizard is a web application that takes in ingredients from the user and returns 
+        Pantry Wizard is a web application that takes in ingredients from the user  <br></br>
+        and returns recipes that uses to ingredients using the Spoonacular API.<br></br>
+        Pantry Wizard also provides users with updated news related to the<br></br>
+        food world all over the globe using NEWS API.
         </b>
       </p>
-      <p><b>
-      recipes that uses to ingredients using the Spoonacular API. Pantry Wizard also provides 
-      </b>
-      </p>
-      <p><b>
-      users with updated news related to the food world all over the globe using NEWS API.
-      </b>
-      </p>
-      <p>
 
-
-      </p>
       <h2>Login below</h2>
 
       {/* Login Form */}
