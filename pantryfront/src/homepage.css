@@ -1,15 +1,53 @@
-.homepage {
-    text-align: center;
-    padding: 20px;
+/* homepage.css */
 
-  }
- 
-  .button-container {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-.homepage h1 {
-  color: #f6c751; /* Change the color to your desired value */
+.hompage body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
 }
-  
+
+.homepage {
+  text-align: center;
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.homepage h1 {
+  color: #f6c751;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.button-container button {
+  background-color: #f6c751;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.button-container button:hover {
+  background-color: #f0f0f0;
+}
+
+.footer {
+  background-color: #f0f0f0;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
