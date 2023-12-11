@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+//import React, { useState, useEffect } from "react";
 import "./App.css";
 //import LoginButton from "./login"; 
-import { gapi } from "gapi-script";
+//import { gapi } from "gapi-script";
 import logo from "./components/Images/smallerLogo.png"
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Homepage from './homepage'; 
@@ -12,9 +12,10 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 
 
-const clientId = "312871000003-3d2pb1d7jlktfuhvkcl1lpkal499s7l7.apps.googleusercontent.com";
+//const clientId = "312871000003-3d2pb1d7jlktfuhvkcl1lpkal499s7l7.apps.googleusercontent.com";
 
 export default function App() {
+  /*
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
     function start() {
@@ -48,7 +49,7 @@ export default function App() {
 
     
   }, []);
-
+*/
   return (
     <Router>
 
@@ -76,10 +77,12 @@ export default function App() {
 
       {/* Login Form */}
       <div className="login-form">
-      <GoogleOAuthProvider clientId="375293308328-irr6hnhiernoroch1bk25vfgfbs6jbr4.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId="312871000003-3d2pb1d7jlktfuhvkcl1lpkal499s7l7.apps.googleusercontent.com">
         <GoogleLogin
           onSuccess={credentialResponse => {
             console.log(credentialResponse);
+            //setIsAuthenticated(true);
+
           }}
           onError={() => {
             console.log('Login Failed');
@@ -90,11 +93,13 @@ export default function App() {
       </div>
       <Routes>
           {/*<Route exact path="/" component={LoginButton} />*/}
-          {isAuthenticated ? (
+          <Route exact path="/homepage" element={<Homepage />} />
+          
+          {/*{isAuthenticated ? (
             <Route path="/homepage" element={<Homepage />} />
           ) : (
             <Route path="*" element={null} />
-          )}
+          )} */}
           {/* not sure how this is supposed to work, the home page keeps appearing
               on the bottom even if the user is not logged in.
               But when i delete the line above, it says homepage cannot be found.*/}
