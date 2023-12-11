@@ -13,24 +13,13 @@ function GetRecipes() {
   const navigate = useNavigate();
 
   const handleGetRecipes = async () => {
-    try {
       const response = await axios.get(`http://127.0.0.1:8000/backend/get_recipes/?ingredients=${ingredients}`)
       const recipe = await response.data;
       console.log(recipe);
       setRecipes(recipe);
 
-      if (response.status === 200) {
-        setRecipes(response.data);
-
-        // Redirect to a new URL
-        navigate.push(`/backend/get_recipes/?ingredients=${encodeURIComponent(ingredients)}`);
-
-      } else {
-        setError('Failed to fetch recipes');
-      }
-    } catch (error) {
-      setError('Error fetching recipes');
-    }
+     
+    
   };
   React.useEffect(() => {
     handleGetRecipes();
@@ -62,13 +51,19 @@ function GetRecipes() {
       {error && <p>{error}</p>}
 
       <div>
-        {recipes.map((recipe, index) => (
+      {recipes.length > 0 ? (
+        recipes.map((recipe, index) => (
           <div key={index}>
             <h3>{recipe.title}</h3>
-            {/* <p>{recipe.description}</p> */}
             {/* Display other recipe details as needed */}
+            <p>{recipe.description}</p>
+            {/* For example, display image */}
+            {recipe.image && <img src={recipe.image} alt={recipe.title} />}
           </div>
-        ))}
+        ))
+      ) : (
+        <p>No recipes found</p>
+      )}
       </div>
     </div>
   );
