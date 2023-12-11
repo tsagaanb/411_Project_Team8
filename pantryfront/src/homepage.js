@@ -9,11 +9,14 @@ function Homepage() {
     <div className="homepage">
       <h1>Welcome to Pantry Wizard</h1>
       <div className="button-container">
+      <button onClick={() => console.log('Saved Recipes clicked')}>
+          Saved Recipes
+        </button>
         <button onClick={() => console.log('Enter Ingredients clicked')}>
           Get Recipes
         </button>
-        <button onClick={() => console.log('Saved Recipes clicked')}>
-          Saved Recipes
+        <button onClick={() => console.log('Display news')}>
+          Food News
         </button>
       </div>
     </div>
