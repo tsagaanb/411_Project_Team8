@@ -60,6 +60,7 @@ def get_news(request): #second api
     params = {
             'q': user_input,
             'apiKey': news_api_key,
+            'number': 10,
         }
 
     response = requests.get(news_api_url, params=params)
