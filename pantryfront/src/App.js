@@ -5,7 +5,6 @@ import { gapi } from "gapi-script";
 import logo from "./components/Images/smallerLogo.png"
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Homepage from './homepage'; 
-import React from "react";
 import axios from "axios";
 
 
