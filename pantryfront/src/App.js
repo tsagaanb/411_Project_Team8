@@ -76,7 +76,7 @@ export default function App() {
 
       {/* Login Form */}
       <div className="login-form">
-      <GoogleOAuthProvider clientId="312871000003-3d2pb1d7jlktfuhvkcl1lpkal499s7l7.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId="375293308328-irr6hnhiernoroch1bk25vfgfbs6jbr4.apps.googleusercontent.com">
         <GoogleLogin
           onSuccess={credentialResponse => {
             console.log(credentialResponse);
