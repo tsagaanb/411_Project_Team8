@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     #"django.contrib.sites",
     #"oauth_app",
    # "django.core",
-   # "corsheaders",
+    "corsheaders",
 
 ]
 #step 7 of connecting front to backend 
@@ -62,7 +62,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-   # "corsheaders.middleware.CorsMiddleware ",
+    "corsheaders.middleware.CorsMiddleware",
 
 ]
 
@@ -100,6 +100,11 @@ DATABASES = {
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
+]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # Allow requests from this origin
+
+    # Add more origins as needed
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
