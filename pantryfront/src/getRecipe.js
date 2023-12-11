@@ -12,11 +12,13 @@ function GetRecipes() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleGetRecipes = async (event) => {
-    event.preventDefault();
+  const handleGetRecipes = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/backend/get_recipes/?ingredients=${ingredients}')
-     
+      const response = await axios.get(`http://127.0.0.1:8000/backend/get_recipes/?ingredients=${ingredients}`)
+      const recipe = await response.data;
+      console.log(recipe);
+      setRecipes(recipe);
+
       if (response.status === 200) {
         setRecipes(response.data);
 
@@ -30,6 +32,9 @@ function GetRecipes() {
       setError('Error fetching recipes');
     }
   };
+  React.useEffect(() => {
+    handleGetRecipes();
+  }, []);
 
    // Function to handle input change
    const handleInputChange = (e) => {
@@ -41,7 +46,10 @@ function GetRecipes() {
       <h1>Get Recipes</h1>
         
         {/* Form for input */}
-        <form onSubmit={handleGetRecipes}>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleGetRecipes();
+        }}>
           <input
             type="text"
             placeholder="Enter ingredients"
@@ -57,7 +65,7 @@ function GetRecipes() {
         {recipes.map((recipe, index) => (
           <div key={index}>
             <h3>{recipe.title}</h3>
-            <p>{recipe.description}</p>
+            {/* <p>{recipe.description}</p> */}
             {/* Display other recipe details as needed */}
           </div>
         ))}
