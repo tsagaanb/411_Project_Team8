@@ -2,6 +2,28 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 
+const handleGetRecipes = async (event) => {
+    event.preventDefault();
+
+    if (ingredients.trim() === '') {
+        setError('Please enter ingredients before searching.');
+        return;
+      }
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/backend/get_recipes/?ingredients=${encodeURIComponent(ingredients)}`);
+      
+        if (response.status === 200) {
+          setRecipes(response.data);
+          // Redirect to a new URL
+          history.push(`/backend/get_recipes/?ingredients=${encodeURIComponent(ingredients)}`);
+        } else {
+          setError('Failed to fetch recipes');
+        }
+      } catch (error) {
+        setError('Error fetching recipes');
+      }
+    };
+
 function RedirectedPage() {
     const [ingredients, setIngredients] = useState('');
     const history = useHistory();
