@@ -5,7 +5,7 @@ from django.contrib import admin
 #from django.conf.urls import url 
 #from core.views import * #not sure
 from . import views
-from .views import get_recipes, get_news, submit_rating, ReactView
+from .views import get_recipes, get_news, submit_rating, ReactView, save_recipe, get_saved_recipes 
 
 
 
@@ -17,7 +17,8 @@ urlpatterns = [
     path('get_news/', get_news, name='get_news'),
     path('submit_rating/<int:recipe_id>/', views.submit_rating, name='submit_rating'),
     #path('', TemplateView.as_view(template_name="index.html")), might need this
+    path('save_recipe/<int:recipe_id>/', save_recipe, name='save_recipe'),
+    path('backend/get_saved_recipes/', get_saved_recipes, name='get_saved_recipes'),
 
-   
 
 ]

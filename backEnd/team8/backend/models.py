@@ -34,7 +34,7 @@ class UserRecipe(models.Model):
     saved_at = models.DateTimeField(auto_now_add=True) 
 
     def __str__(self): #string representation of the object, dont know if we need this
-        return self.recipe_name
+        return self.recipe.recipe_name
     
 """
 # Adding a rating system on the recipes
