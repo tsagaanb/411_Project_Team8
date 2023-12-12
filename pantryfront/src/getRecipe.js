@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './getRecipe.css'; // Importing the CSS file for styling
 
@@ -10,7 +10,9 @@ function GetRecipes() {
   const handleGetRecipes = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/backend/get_recipes/?ingredients=${ingredients}`);
-      const recipeData = await response.data;
+      let recipeData = await response.data;
+      // Sort recipes by likes (descending order)
+      recipeData.sort((a, b) => b.likes - a.likes);
       console.log(recipeData);
       setRecipes(recipeData);
     } catch (error) {
@@ -18,10 +20,6 @@ function GetRecipes() {
       console.error('Error fetching recipes:', error);
     }
   };
-
-  React.useEffect(() => {
-    handleGetRecipes();
-  }, []);
 
   const handleInputChange = (e) => {
     setIngredients(e.target.value);
@@ -50,13 +48,30 @@ function GetRecipes() {
       <div className="recipe-container">
         {recipes.length > 0 ? (
           recipes.map((recipe, index) => (
-          <div key={index} className="recipe-item">
-            <h3 className="recipe-title">{recipe.title}</h3>
-            {recipe.image && (<img src={recipe.image} alt={recipe.title} className="recipe-image" />
-        )}
-            {recipe.original && <p className="recipe-ings"><b>Ingredients: </b> {recipe.original}</p>}
-
-      </div>
+            <div key={index} className="recipe-item">
+              <div className="recipe-details">
+                <h3 className="recipe-title">{recipe.title}</h3>
+                {recipe.image && <img src={recipe.image} alt={recipe.title} className="recipe-image" />}
+                {recipe.likes && <p className="recipe-likes"><b>Likes: </b> {recipe.likes}</p>}
+              </div>
+              <div className="recipe-ings">
+                <h2>Ingredients:</h2>
+                <ul>
+                  {recipe.usedIngredients.map((ingredient, index) => (
+                    <li key={index}>
+                      {ingredient.amount} {ingredient.unit} - {ingredient.name}
+                    </li>
+                  ))}
+                </ul>
+                <ul>
+                  {recipe.missedIngredients.map((ingredient, index) => (
+                    <li key={index}>
+                      {ingredient.amount} {ingredient.unit} - {ingredient.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           ))
         ) : (
           <p>No recipes found</p>
