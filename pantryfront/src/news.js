@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './news.css';
+import Navbar from './components/Navbar';
 
 function GetNews() {
   const defaultKeyword = 'Food'; // Default keyword
@@ -33,6 +34,7 @@ function GetNews() {
 
   return (
     <div className="news-container">
+      <Navbar />
       <h1>Get News! (Change the keyword to get news on other topics)</h1>
       <form
         onSubmit={(e) => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './savedRecipe.css';
+import Navbar from './components/Navbar';
 
 function SavedRecipe() {
   const [savedRecipes, setSavedRecipes] = useState([]);
@@ -38,6 +39,7 @@ function SavedRecipe() {
 
   return (
     <div className="recipe-container">
+      <Navbar />
       <h1>Saved Recipes</h1>
 
       {error && <p>{error}</p>}
