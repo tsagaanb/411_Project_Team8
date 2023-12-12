@@ -1,66 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-//import { useNavigate } from 'react-router-dom'; //using router dom so that it brings us to a different page 
-
-
-// url of api info: http://127.0.0.1:8000/backend/get_recipes/?ingredients=cheese,bread,ham
-
+import './getRecipe.css'; // Importing the CSS file for styling
 
 function GetRecipes() {
   const [ingredients, setIngredients] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState('');
-  //const navigate = useNavigate();
 
   const handleGetRecipes = async () => {
-      const response = await axios.get(`http://127.0.0.1:8000/backend/get_recipes/?ingredients=${ingredients}`)
-      const recipe = await response.data;
-      console.log(recipe);
-      setRecipes(recipe);
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/backend/get_recipes/?ingredients=${ingredients}`);
+      const recipeData = await response.data;
+      console.log(recipeData);
+      setRecipes(recipeData);
+    } catch (error) {
+      setError('Failed to fetch recipes');
+      console.error('Error fetching recipes:', error);
+    }
   };
+
   React.useEffect(() => {
     handleGetRecipes();
   }, []);
 
-   // Function to handle input change
-   const handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     setIngredients(e.target.value);
   };
 
   return (
-    <div>
+    <div className="recipe-container">
       <h1>Get Recipes</h1>
-        
-        {/* Form for input */}
-        <form onSubmit={(e) => {
+      <form
+        onSubmit={(e) => {
           e.preventDefault();
           handleGetRecipes();
-        }}>
-          <input
-            type="text"
-            placeholder="Enter ingredients"
-            value={ingredients}
-            onChange={handleInputChange}
-          />
-      <button type="submit">Get Recipes</button>
-        </form> 
+        }}
+      >
+        <input
+          type="text"
+          placeholder="Enter ingredients"
+          value={ingredients}
+          onChange={handleInputChange}
+        />
+        <button type="submit">Get Recipes</button>
+      </form>
 
       {error && <p>{error}</p>}
 
-      <div>
-      {recipes.length > 0 ? (
-        recipes.map((recipe, index) => (
-          <div key={index}>
-            <h3>{recipe.title}</h3>
-            {/* Display other recipe details as needed */}
-            <p>{recipe.description}</p>
-            {/* For example, display image */}
-            {recipe.image && <img src={recipe.image} alt={recipe.title} />}
-          </div>
-        ))
-      ) : (
-        <p>No recipes found</p>
-      )}
+      <div className="recipe-container">
+        {recipes.length > 0 ? (
+          recipes.map((recipe, index) => (
+          <div key={index} className="recipe-item">
+            <h3 className="recipe-title">{recipe.title}</h3>
+            {recipe.image && (<img src={recipe.image} alt={recipe.title} className="recipe-image" />
+        )}
+            {recipe.original && <p className="recipe-ings"><b>Ingredients: </b> {recipe.original}</p>}
+
+      </div>
+          ))
+        ) : (
+          <p>No recipes found</p>
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,33 @@
+.news-container {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #f4f985;
+    background-color: #f9f9f9;
+  }
+  
+  /* Styling for the individual article container */
+  .articles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(1000px, 1fr));
+    gap: 20px;
+  }
+  
+  .article h3 {
+    color: black; /* Change title text color to black */
+    font-size: 24px
+  }
+  
+  .article p {
+    color: black; /* Change text color of other paragraphs to white */
+    text-align: left; /* Change text alignment to left */
+    font-size: 18px;
+  }
+  
+  /* Styling for each individual article */
+  .article {
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  

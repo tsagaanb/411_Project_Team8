@@ -59,4 +59,30 @@ p {
   color: white;
   line-height: 1.8;
 }
+/* homepage.css */
+
+/* Styling for the overall news container */
+.news-container {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+/* Styling for the individual article container */
+.articles-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Styling for each individual article */
+.article {
+  padding: 15px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Additional styles as needed */
 
