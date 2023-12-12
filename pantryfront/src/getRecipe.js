@@ -2,25 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './getRecipe.css'; // Importing the CSS file for styling
 
-const csrftoken = getCookie('csrftoken');
-
-//axios post request to save recipe:
-
-axios.post('/save_recipe/<int:recipe_id>/', data, {
-  headers: {
-    'Content-Type': 'application/json',
-    'X-CSRFToken': csrftoken,
-  },
-})
-.then(response => {
-  console.log(response.data);
-})
-.catch(error => {
-  console.error('Error saving recipe:', error);
-});
-
-
-
 function GetRecipes() {
   const [ingredients, setIngredients] = useState('');
   const [recipes, setRecipes] = useState([]);
