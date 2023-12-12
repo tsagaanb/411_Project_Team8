@@ -14,9 +14,6 @@ function Navbar(){
             <li>
               <a href="/homepage">Home</a>
             </li>
-            <li>
-              <a href="index.html">About</a>
-            </li>
           </ul>
         </div>
       </nav>

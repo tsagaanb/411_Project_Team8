@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './getRecipe.css'; // Importing the CSS file for styling
+import Navbar from './components/Navbar';
 
 function GetRecipes() {
   const [ingredients, setIngredients] = useState('');
@@ -61,6 +62,7 @@ function GetRecipes() {
 
   return (
     <div className="recipe-container" style={{ color: 'black' }}>
+      <Navbar />
       <h1>Get Recipes</h1>
       <form
         onSubmit={(e) => {
