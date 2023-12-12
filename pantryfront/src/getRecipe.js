@@ -28,6 +28,7 @@ function GetRecipes() {
 
   return (
     <div className="recipe-container" style={{ color: 'black' }}>
+      <Navbar />
       <h1>Get Recipes</h1>
       <form
         onSubmit={(e) => {
