@@ -114,20 +114,19 @@ def save_recipe(request, recipe_id):
 
     return JsonResponse({'message': 'Recipe saved successfully'})
 
-def get_saved_recipes(request):
-    if request.method == 'GET':
-        # Retrieve saved recipes for the logged-in user
-        saved_recipes = UserRecipe.objects.filter(user=request.user).values('recipe__recipe_name', 'recipe__instructions', 'recipe__average_rating', 'recipe__total_ratings')
+def save_recipe(request, recipe_id):
+    if request.method == 'POST':
+        recipe = get_object_or_404(Recipe, pk=recipe_id)
 
-        # Convert queryset to a list to be included in the JSON response
-        saved_recipes_list = list(saved_recipes)
+        # Try to get the UserRecipe instance, or create a new one
+        user_recipe, created = UserRecipe.objects.get_or_create(user=request.user, recipe=recipe)
 
-        # Return the saved recipes data as JSON response
-        return JsonResponse(saved_recipes_list, safe=False)
+        if not created:
+            return JsonResponse({'error': 'Recipe already saved by the user'}, status=400)
 
-    # Handle other HTTP methods if needed
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
-
+        return JsonResponse({'message': 'Recipe saved successfully'}, status=201)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 
 
