@@ -27,7 +27,7 @@ def get_recipes(request):
         params = {
             'ingredients': user_input,
             'apiKey': api_key,
-            'number': 3, # number of recipes returned to user
+            'number': 1, # number of recipes returned to user
             # 3 for now, for tests only. Update to 10 when making a video
         }
 
@@ -61,7 +61,6 @@ def get_news(request): #second api
     params = {
             'q': user_input,
             'apiKey': news_api_key,
-            'number': 10,
         }
 
     response = requests.get(news_api_url, params=params)
