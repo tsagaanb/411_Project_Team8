@@ -2,18 +2,39 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './getRecipe.css'; // Importing the CSS file for styling
 
+const csrftoken = getCookie('csrftoken');
+
+//axios post request to save recipe:
+
+axios.post('/save_recipe/<int:recipe_id>/', data, {
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrftoken,
+  },
+})
+.then(response => {
+  console.log(response.data);
+})
+.catch(error => {
+  console.error('Error saving recipe:', error);
+});
+
+
+
 function GetRecipes() {
   const [ingredients, setIngredients] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState('');
+  const [savedMessage, setSavedMessage] = useState('');
 
   const handleGetRecipes = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/backend/get_recipes/?ingredients=${ingredients}`);
-      let recipeData = await response.data;
+      const recipeData = response.data;
+
       // Sort recipes by likes (descending order)
       recipeData.sort((a, b) => b.likes - a.likes);
-      console.log(recipeData);
+
       setRecipes(recipeData);
     } catch (error) {
       setError('Failed to fetch recipes');
@@ -21,12 +42,44 @@ function GetRecipes() {
     }
   };
 
+  const handleSaveRecipe = async (recipeId) => {
+    try {
+      // Make an API call to save the recipe
+      const response = await axios.post(`http://127.0.0.1:8000/backend/save_recipe/${recipeId}/`);
+      
+      // Check if the response indicates success (status code 2xx)
+      if (response.status === 200 || response.status === 201) {
+        console.log('Recipe saved successfully:', response.data);
+        
+        // Display a message to the user
+        setSavedMessage('Recipe saved successfully');
+        
+        // Update the recipe's status to indicate it's saved
+        setRecipes((prevRecipes) =>
+          prevRecipes.map((recipe) =>
+            recipe.id === recipeId ? { ...recipe, saved: true } : recipe
+          )
+        );
+      } else {
+        console.error('Failed to save recipe. Unexpected response:', response);
+        
+        // Display an error message to the user
+        setSavedMessage('Error saving recipe. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error saving recipe:', error);
+      
+      // Display an error message to the user
+      setSavedMessage('Error saving recipe. Please try again.');
+    }
+  };
+  
   const handleInputChange = (e) => {
     setIngredients(e.target.value);
   };
 
   return (
-    <div className="recipe-container">
+    <div className="recipe-container" style={{ color: 'black' }}>
       <h1>Get Recipes</h1>
       <form
         onSubmit={(e) => {
@@ -44,11 +97,12 @@ function GetRecipes() {
       </form>
 
       {error && <p>{error}</p>}
+      {savedMessage && <p style={{ color: 'black' }}>{savedMessage}</p>}
 
       <div className="recipe-container">
         {recipes.length > 0 ? (
-          recipes.map((recipe, index) => (
-            <div key={index} className="recipe-item">
+          recipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-item">
               <div className="recipe-details">
                 <h3 className="recipe-title">{recipe.title}</h3>
                 {recipe.image && <img src={recipe.image} alt={recipe.title} className="recipe-image" />}
@@ -70,6 +124,9 @@ function GetRecipes() {
                     </li>
                   ))}
                 </ul>
+                <button onClick={() => handleSaveRecipe(recipe.id)} disabled={recipe.saved}>
+                  {recipe.saved ? 'Saved' : 'Save Recipe'}
+                </button>
               </div>
             </div>
           ))
