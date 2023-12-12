@@ -22,6 +22,17 @@ function GetRecipes() {
     }
   };
 
+  const handleSaveRecipe = async (recipeId) => {
+    try {
+      // Make an API call to save the recipe
+      const response = await axios.post(`http://127.0.0.1:8000/backend/save_recipe/${recipeId}/`);
+      console.log(response.data); // Handle success or error response
+    } catch (error) {
+      console.error('Error saving recipe:', error);
+    }
+  };
+
+
   const handleInputChange = (e) => {
     setIngredients(e.target.value);
   };
@@ -70,8 +81,9 @@ function GetRecipes() {
                     <li key={index}>
                       {ingredient.amount} {ingredient.unit} - {ingredient.name}
                     </li>
-                  ))}
+                  ))} 
                 </ul>
+                <button onClick={() => handleSaveRecipe(recipe.id)}>Save Recipe</button>
               </div>
             </div>
           ))
