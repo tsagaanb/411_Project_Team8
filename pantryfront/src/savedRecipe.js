@@ -39,7 +39,7 @@ function SavedRecipe() {
 
   return (
     <div className="recipe-container">
-      <Navbar />
+        <Navbar />
       <h1>Saved Recipes</h1>
 
       {error && <p>{error}</p>}

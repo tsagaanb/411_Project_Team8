@@ -11,6 +11,7 @@ from rest_framework.response import Response  #not sure what this is
 from . serializer import *
 #from .utils import get_recipe_from_ingredients  # for spoonacular API
 from django.http import JsonResponse
+from .models import User
 
 
  ####api stuff 
@@ -106,8 +107,8 @@ def submit_rating(request, recipe_id):
 
 def get_saved_recipes(request):
     if request.method == 'GET':
-        # Retrieve saved recipes for the logged-in user
-        saved_recipes = UserRecipe.objects.filter(user=request.user).values('recipe__recipe_name', 'recipe__instructions', 'recipe__average_rating', 'recipe__total_ratings')
+        # Retrieve all saved recipes (or apply your filtering logic here)
+        saved_recipes = Recipe.objects.all().values('recipe_name', 'instructions', 'average_rating', 'total_ratings')
 
         # Convert queryset to a list to be included in the JSON response
         saved_recipes_list = list(saved_recipes)
@@ -115,27 +116,34 @@ def get_saved_recipes(request):
         # Return the saved recipes data as JSON response
         return JsonResponse(saved_recipes_list, safe=False)
 
-    # Handle other HTTP methods if needed
     return JsonResponse({'error': 'Invalid request method'}, status=400)
-
 
 
 def save_recipe(request, recipe_id):
     if request.method == 'POST':
-        recipe = get_object_or_404(Recipe, pk=recipe_id)
+        # Extract recipe data from request
+        recipe_data = request.POST
 
-        # Try to get the UserRecipe instance, or create a new one
-        user_recipe, created = UserRecipe.objects.get_or_create(user=request.user, recipe=recipe)
+        # Create a new Recipe instance
+        recipe = Recipe.objects.create(**recipe_data)
 
-        if not created:
-            return JsonResponse({'error': 'Recipe already saved by the user'}, status=400)
+        # Save the recipe
+        recipe.save()
 
         return JsonResponse({'message': 'Recipe saved successfully'}, status=201)
+
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-
-
+def save_user_name(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        user = User.objects.create(name=name)
+        return JsonResponse({'status': 'success', 'userId': user.id})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
+    
+    
 
 #to connect to front end:
 
