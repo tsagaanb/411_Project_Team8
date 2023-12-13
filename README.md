@@ -2,11 +2,16 @@
 **Team 8**
 **Team Members:**
 Tsagaandari Battugs
+
 Chloe Lesson
+
 Evan Akinyemi
+
 Maximilian Gorriaran
+
 **Brief Description:**
 **Pantry Wizard**
+
 Our we application is an application that uses Django for out backend, React for the frontend, MongoDb as the Database, and Axios to connect the backend and frontend. 
 We used Google Authorization for the OAuth.
 Pantry Wizard is a web application that retrieves ingredients as an input from the user, uses the Spoonacular API to fetch recipes that includes those ingredients and return it back to the user, which the user can save them to view later.
