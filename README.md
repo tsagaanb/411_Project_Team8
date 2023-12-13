@@ -1,6 +1,7 @@
 **Video Submission Link:** [https://www.youtube.com/watch?v=Oos2CkA5frs&feature=youtu.be&ab_channel=TsagaandariWhitey]
 **Team 8**
 **Team Members:**
+
 Tsagaandari Battugs
 
 Chloe Lesson
