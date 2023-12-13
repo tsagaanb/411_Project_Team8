@@ -46,13 +46,13 @@ function GetRecipes() {
         console.error('Failed to save recipe. Unexpected response:', response);
         
         // Display an error message to the user
-        setSavedMessage('Recipe saved successfully.');
+        setSavedMessage('Error saving recipe:');
       }
     } catch (error) {
       console.error('Error saving recipe:', error);
       
       // Display an error message to the user
-      setSavedMessage('Recipe saved successfully');
+      setSavedMessage('Error saving recipe');
     }
   };
   
