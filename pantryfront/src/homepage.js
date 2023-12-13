@@ -37,7 +37,7 @@ function Homepage() {
         <h1>Welcome to Pantry Wizard</h1>
         
         
-        
+      <br/>
         <div className="button-container">
         
         <button onClick={() => window.location.href = '/getRecipe'}>
@@ -47,25 +47,11 @@ function Homepage() {
           Food News
         </button>
         </div>
-        <br/>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Enter your name"
-              value={userName}
-              onChange={handleInputChange}
-            />
-            <button type="submit">Save Name</button>
-          </form>
-          {submitStatus && <p>{submitStatus}</p>}
-        </div>
-
+        
 
       </div>
       <div>
       <p><b>
-        Click on the "Saved Recipes" button to retrieve your saved recipes. <br></br>
         Click on the "Get Recipes" button to input ingredients and get a recipe.<br></br>
         Click on the "Food News" button to get news updates on the food universe.<br></br>
         </b>
